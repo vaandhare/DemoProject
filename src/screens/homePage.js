@@ -30,7 +30,7 @@ const HomePage = ({navigation}) => {
             await AsyncStorage.clear();
             navigation.navigate('login');
           }}>
-          <Text>Logout</Text>
+          <Text style={styles.logout}>Logout</Text>
         </TouchableOpacity>
       ),
     });
@@ -63,7 +63,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
+    color: '#000',
     fontSize: 20,
+  },
+  logout: {
+    color: '#000',
+    fontSize: 16,
   },
   webViewBtn: {
     width: '50%',

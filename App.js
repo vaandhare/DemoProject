@@ -38,6 +38,7 @@ const App = () => {
           component={LoginPage}
           options={{
             title: 'Login',
+            headerBackVisible: false,
           }}
         />
         <Stack.Screen

@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 import SimpleToast from 'react-native-simple-toast';
+import notifee, {AndroidStyle} from '@notifee/react-native';
 
 const HomePage = ({navigation}) => {
   const [input, setInput] = useState('');
@@ -36,6 +37,42 @@ const HomePage = ({navigation}) => {
     });
   }, []);
 
+  async function onDisplayNotification() {
+    const channelId = await notifee.createChannel({
+      id: 'default',
+      name: 'Default',
+    });
+
+    await notifee.displayNotification({
+      title: 'Notification',
+      body: 'Hey, Vaibhav! This is test notification',
+      android: {
+        channelId,
+        style: {
+          type: AndroidStyle.BIGPICTURE,
+          picture:
+            'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
+        },
+        actions: [
+          {
+            title: 'Snooze',
+            icon: 'https://my-cdn.com/icons/snooze.png',
+            pressAction: {
+              id: 'snooze',
+            },
+          },
+        ],
+      },
+      ios: {
+        attachments: [
+          {
+            url: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
+          },
+        ],
+      },
+    });
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Hello, {input}!</Text>
@@ -48,6 +85,11 @@ const HomePage = ({navigation}) => {
         style={styles.webViewBtn}
         onPress={() => navigation.navigate('listview')}>
         <Text style={styles.webViewTxt}>List View</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.webViewBtn}
+        onPress={() => onDisplayNotification()}>
+        <Text style={styles.webViewTxt}>Notifee</Text>
       </TouchableOpacity>
     </View>
   );

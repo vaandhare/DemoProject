@@ -39,12 +39,14 @@ const LoginPage = ({navigation}) => {
       <TextInput
         style={styles.textInputs}
         placeholder="Email"
+        placeholderTextColor={'#000'}
         onChangeText={text => setEmail(text)}
       />
       <TextInput
         style={styles.textInputs}
         placeholder="Password"
         secureTextEntry={true}
+        placeholderTextColor={'#000'}
         onChangeText={text => setPassword(text)}
       />
       <TouchableOpacity
